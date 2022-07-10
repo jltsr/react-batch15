@@ -1,26 +1,76 @@
 import React,{useState,useEffect} from 'react'
 import Api from '../Api/Api'
+import DepartmentForm from '../FormApi/DepartmentForm'
 
-export default function RegionView() {
+export default function DepartmentView() {
     const [department,setDepartment] = useState([])
+    const [display, setDisplay] = useState(false)
+    const [refresh, setRefresh] = useState(false)
+    const [location_id,setlocation_id] = useState([])
+    const [values, setValues] = useState({
+        department_id:'',
+        department_name:'',
+        location_id: '' 
+    })
 
     useEffect(() => {
         Api.listDepartment().then(data => {
             setDepartment(data)
         })
-    },[])
+        Api.listLocation().then(data => {
+            setlocation_id(data)
+        })
+        setRefresh(false)
+    },[refresh])
+
+    const handleOnChange= name => event =>{
+        setValues({...values,[name]:event.target.value})
+    }
+
+    const onSubmit = async() => {
+        const payload= {
+            department_id: values.department_id,
+            department_name : values.department_name,
+            location_id : values.location_id
+            
+        }
+       
+        await Api.addDepartment(payload)
+            .then(() =>{
+                setDisplay(false)
+                setRefresh(true)
+                window.alert('Data Successfully Insert')
+            })
+    }
+
+    const onDelete = async(id) =>{
+        Api.deleteDepartment(id)
+            .then(() =>{
+                setRefresh(true)
+                window.alert('Data Successfully Delete')
+            })
+    }
 
     return (
         <div>
-        <div>
+        <div style={{ margin: "5px", padding: "10px"}}>
                 <h2>List Department</h2>
-                
+                <button onClick={() => setDisplay(true)}> Add Department </button>
                 {
+                    display?
+                    <DepartmentForm
+                        onSubmit={onSubmit}
+                        handleOnChange={handleOnChange}
+                        setDisplay={setDisplay}
+                        location_id={location_id}
+                    />
+                    :
                         <>
-                            <table>
-                                <th>Department ID</th>
-                                <th>Department Name</th>
-                                <th>Location ID</th>
+                            <table rules='all' border='1'>
+                                <th align='center'>Department ID</th>
+                                <th align='center'>Department Name</th>
+                                <th align='center'>Location ID</th>
+                                <th align='center'>Action</th>
                                 <tbody>
                                     {
                                         department&&department.map( dept => (
@@ -28,6 +78,7 @@ export default function RegionView() {
                                                 <td>{dept.department_id}</td>
                                                 <td>{dept.department_name}</td>
                                                 <td>{dept.location_id}</td>
+                                                <button onClick={() => onDelete(dept.department_id)}> Delete Department </button>
                                             </tr>
                                         ))
                                     }

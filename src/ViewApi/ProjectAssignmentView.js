@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import Api from '../Api/Api'
 
-export default function RegionView() {
+export default function ProjectAssignmentView() {
     const [assignment,setAssignment] = useState([])
 
     useEffect(() => {

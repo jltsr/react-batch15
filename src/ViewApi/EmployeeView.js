@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import Api from '../Api/Api'
 
-export default function RegionView() {
+export default function EmployeeView() {
     const [employee,setEmployee] = useState([])
 
     useEffect(() => {

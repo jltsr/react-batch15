@@ -14,15 +14,9 @@ import ProjectAssignmentView from './ViewApi/ProjectAssignmentView'
 function App() {
   return (
     <div>
-      <RegionView/>
-      <CountryView/>
-      <LocationView/>
-      <DepartmentView/>
-      <JobView/>
+
       <DependentView/>
-      <EmployeeView/>
-      <ProjectView/>
-      <ProjectAssignmentView/>
+
     </div>
   );
 }
