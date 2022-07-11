@@ -18,6 +18,24 @@ const addRegion = async(payload) => {
         return await error.message
     }
 }
+const findOneRegion = async(id)=>{
+    try {
+        const result = await axios.get(`${config.domain}/region/${id}`)
+        return result.data
+    } catch (error) {
+        return error
+    }
+}
+const updateRegion = async(data)=>{
+    try {
+        const result = await axios.put(`${config.domain}/region/${data.region_id}`,data)
+        return result
+    } catch (error) {
+        return error
+    }
+}
+
+
 const deleteRegion= async(id) => {
     try {
         const result =await axios.delete(`${config.domain}/region/${id}`)
@@ -42,6 +60,22 @@ const addCountry = async(payload) => {
         return result
     } catch (error) {
         return await error.message
+    }
+}
+const findOneCountry = async(id)=>{
+    try {
+        const result = await axios.get(`${config.domain}/country/${id}`)
+        return result.data
+    } catch (error) {
+        return error
+    }
+}
+const updateCountry = async(data)=>{
+    try {
+        const result = await axios.put(`${config.domain}/country/${data.country_id}`,data)
+        return result
+    } catch (error) {
+        return error
     }
 }
 const deleteCountry= async(id) => {
@@ -70,6 +104,22 @@ const addLocation = async(payload) => {
         return await error.message
     }
 }
+const findOneLocation = async(id)=>{
+    try {
+        const result = await axios.get(`${config.domain}/location/${id}`)
+        return result.data
+    } catch (error) {
+        return error
+    }
+}
+const updateLocation = async(data)=>{
+    try {
+        const result = await axios.put(`${config.domain}/location/${data.location_id}`,data)
+        return result
+    } catch (error) {
+        return error
+    }
+}
 const deleteLocation= async(id) => {
     try {
         const result =await axios.delete(`${config.domain}/location/${id}`)
@@ -94,6 +144,22 @@ const addDepartment = async(payload) => {
         return result
     } catch (error) {
         return await error.message
+    }
+}
+const findOneDepartment = async(id)=>{
+    try {
+        const result = await axios.get(`${config.domain}/department/${id}`)
+        return result.data
+    } catch (error) {
+        return error
+    }
+}
+const updateDepartment = async(data)=>{
+    try {
+        const result = await axios.put(`${config.domain}/department/${data.department_id}`,data)
+        return result
+    } catch (error) {
+        return error
     }
 }
 const deleteDepartment= async(id) => {
@@ -122,6 +188,22 @@ const addJob = async(payload) => {
         return await error.message
     }
 }
+const findOneJob = async(id)=>{
+    try {
+        const result = await axios.get(`${config.domain}/job/${id}`)
+        return result.data
+    } catch (error) {
+        return error
+    }
+}
+const updateJob = async(data)=>{
+    try {
+        const result = await axios.put(`${config.domain}/job/${data.job_id}`,data)
+        return result
+    } catch (error) {
+        return error
+    }
+}
 const deleteJob= async(id) => {
     try {
         const result =await axios.delete(`${config.domain}/job/${id}`)
@@ -146,6 +228,22 @@ const addDependent = async(payload) => {
         return result
     } catch (error) {
         return await error.message
+    }
+}
+const findOneDependent = async(id)=>{
+    try {
+        const result = await axios.get(`${config.domain}/dependent/${id}`)
+        return result.data
+    } catch (error) {
+        return error
+    }
+}
+const updateDependent = async(data)=>{
+    try {
+        const result = await axios.put(`${config.domain}/dependent/${data.dependent_id}`,data)
+        return result
+    } catch (error) {
+        return error
     }
 }
 const deleteDependent= async(id) => {
@@ -174,6 +272,22 @@ const addEmployee = async(payload) => {
         return await error.message
     }
 }
+const findOneEmployee = async(id)=>{
+    try {
+        const result = await axios.get(`${config.domain}/employee/${id}`)
+        return result.data
+    } catch (error) {
+        return error
+    }
+}
+const updateEmployee = async(data)=>{
+    try {
+        const result = await axios.put(`${config.domain}/employee/${data.region_id}`,data)
+        return result
+    } catch (error) {
+        return error
+    }
+}
 const deleteEmployee= async(id) => {
     try {
         const result =await axios.delete(`${config.domain}/employee${id}`)
@@ -198,6 +312,22 @@ const addProject = async(payload) => {
         return result
     } catch (error) {
         return await error.message
+    }
+}
+const findOneProject = async(id)=>{
+    try {
+        const result = await axios.get(`${config.domain}/project/${id}`)
+        return result.data
+    } catch (error) {
+        return error
+    }
+}
+const updateProject = async(data)=>{
+    try {
+        const result = await axios.put(`${config.domain}/project/${data.region_id}`,data)
+        return result
+    } catch (error) {
+        return error
     }
 }
 const deleteProject= async(id) => {
@@ -226,6 +356,22 @@ const addProjectAssignment = async(payload) => {
         return await error.message
     }
 }
+const findOneProjectAssignment = async(id)=>{
+    try {
+        const result = await axios.get(`${config.domain}/project_assignment/${id}`)
+        return result.data
+    } catch (error) {
+        return error
+    }
+}
+const updateProjectAssignment = async(data)=>{
+    try {
+        const result = await axios.put(`${config.domain}/project_assignment/${data.region_id}`,data)
+        return result
+    } catch (error) {
+        return error
+    }
+}
 const deleteProjectAssignment= async(id) => {
     try {
         const result =await axios.delete(`${config.domain}/project_assignment/${id}`)
@@ -235,13 +381,13 @@ const deleteProjectAssignment= async(id) => {
     }
 }
 export default {
-    listRegion,addRegion,deleteRegion,
-    listCountry,addCountry,deleteCountry,
-    listLocation,addLocation,deleteLocation,
-    listDepartment,addDepartment,deleteDepartment,
-    listJob,addJob,deleteJob,
-    listDependent,addDependent,deleteDependent,
-    listEmployee,addEmployee,deleteEmployee,
-    listProject,addProject,deleteProject,
-    listPojectAssignment,addProjectAssignment,deleteProjectAssignment
+    listRegion,addRegion,findOneRegion,updateRegion,deleteRegion,
+    listCountry,addCountry,findOneCountry,updateCountry,deleteCountry,
+    listLocation,addLocation,findOneLocation,updateLocation,deleteLocation,
+    listDepartment,addDepartment,findOneDepartment,updateDepartment,deleteDepartment,
+    listJob,addJob,findOneJob,updateJob,deleteJob,
+    listDependent,addDependent,findOneDependent,updateDependent,deleteDependent,
+    listEmployee,addEmployee,findOneEmployee,updateEmployee,deleteEmployee,
+    listProject,addProject,findOneProject,updateProject,deleteProject,
+    listPojectAssignment,addProjectAssignment,findOneProjectAssignment,updateProjectAssignment,deleteProjectAssignment
 }

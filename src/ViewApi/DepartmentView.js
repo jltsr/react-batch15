@@ -1,11 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import Api from '../Api/Api'
 import DepartmentForm from '../FormApi/DepartmentForm'
+import DepartmentEditForm from '../FormApi/DepartmentEditForm'
 
 export default function DepartmentView() {
     const [department,setDepartment] = useState([])
     const [display, setDisplay] = useState(false)
     const [refresh, setRefresh] = useState(false)
+    const [displayEdit, setDisplayEdit] = useState(false)
+    const [id, setId] = useState({})
     const [location_id,setlocation_id] = useState([])
     const [values, setValues] = useState({
         department_id:'',
@@ -25,6 +28,22 @@ export default function DepartmentView() {
 
     const handleOnChange= name => event =>{
         setValues({...values,[name]:event.target.value})
+    }
+
+    const onEdit = async() => {
+        const payload= {
+            department_id: (id.departID),
+            department_name : values.department_name,
+            location_id : values.location_id
+            
+        }
+       
+        await Api.updateDepartment(payload)
+            .then(() =>{
+                setDisplay(false)
+                setRefresh(true)
+                window.alert('Data Successfully Insert')
+            })
     }
 
     const onSubmit = async() => {
@@ -50,13 +69,24 @@ export default function DepartmentView() {
                 window.alert('Data Successfully Delete')
             })
     }
+    const onClick = (departID) => {
+        setDisplayEdit(true)
+        setId(departID)
+    }
 
     return (
         <div>
         <div style={{ margin: "5px", padding: "10px"}}>
-                <h2>List Department</h2>
-                <button onClick={() => setDisplay(true)}> Add Department </button>
                 {
+                    displayEdit ?
+                    <DepartmentEditForm
+                        onSubmit={onEdit}
+                        handleOnChange={handleOnChange}
+                        id={id}
+                        location_id={location_id}
+                        setDisplay={setDisplayEdit}
+                    />
+                    :
                     display?
                     <DepartmentForm
                         onSubmit={onSubmit}
@@ -66,6 +96,8 @@ export default function DepartmentView() {
                     />
                     :
                         <>
+                            <h2>List Department</h2>
+                            <button onClick={() => setDisplay(true)}> Add Department </button>
                             <table rules='all' border='1'>
                                 <th align='center'>Department ID</th>
                                 <th align='center'>Department Name</th>
@@ -78,7 +110,8 @@ export default function DepartmentView() {
                                                 <td>{dept.department_id}</td>
                                                 <td>{dept.department_name}</td>
                                                 <td>{dept.location_id}</td>
-                                                <button onClick={() => onDelete(dept.department_id)}> Delete Department </button>
+                                                <button onClick={() => onDelete(dept.department_id)}> Delete </button>
+                                                <button onClick={() => onClick({ departID: dept.department_id })}> Edit </button>
                                             </tr>
                                         ))
                                     }

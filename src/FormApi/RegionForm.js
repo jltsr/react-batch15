@@ -1,8 +1,11 @@
 import React from 'react'
 
+
 export default function RegionForm(props) {
+  
   return (
-    <div>
+    <div style={{ margin: "5px", padding: "10px"}}>
+      <h2>Add Region</h2>
        <form onSubmit={props.onSubmit}>
             <div>
                 <label>Region Name : </label>

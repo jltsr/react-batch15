@@ -1,11 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import Api from '../Api/Api'
 import JobForm from '../FormApi/JobForm'
+import JobEditForm from '../FormApi/JobEditForm'
 
 export default function JobView() {
     const [job,setJob] = useState([])
     const [display, setDisplay] = useState(false)
     const [refresh, setRefresh] = useState(false)
+    const [displayEdit, setDisplayEdit] = useState(false)
+    const [id, setId] = useState({})
     const [values, setValues] = useState({
         job_id: '',
         job_title: '',
@@ -22,6 +25,22 @@ export default function JobView() {
 
     const handleOnChange= name => event =>{
         setValues({...values,[name]:event.target.value})
+    }
+
+    const onEdit = async() => {
+        const payload= {
+            job_id : (id.jID),
+            job_title : values.job_title,
+            min_salary : values.min_salary,
+            max_salary : values.max_salary
+        }
+       
+        await Api.updateJob(payload)
+            .then(() =>{
+                setDisplay(false)
+                setRefresh(true)
+                window.alert('Data Successfully Insert')
+            })
     }
 
     const onSubmit = async() => {
@@ -48,12 +67,24 @@ export default function JobView() {
             })
     }
 
+    const onClick = (jID) => {
+        setDisplayEdit(true)
+        setId(jID)
+    }
+
     return (
         <div>
         <div style={{ margin: "5px", padding: "10px"}}>
-                <h2>List Job</h2>
-                <button onClick={() => setDisplay(true)}> Add Job </button>
+               
                 {
+                    displayEdit ?
+                    <JobEditForm
+                        onSubmit={onEdit}
+                        handleOnChange={handleOnChange}
+                        id={id}
+                        setDisplay={setDisplayEdit}
+                    />
+                    :
                     display?
                     <JobForm
                         onSubmit={onSubmit}
@@ -63,6 +94,8 @@ export default function JobView() {
                     />
                     :
                         <>
+                            <h2>List Job</h2>
+                            <button onClick={() => setDisplay(true)}> Add Job </button>
                             <table rules='all' border='1'>
                                 <th align='center'>Job ID</th>
                                 <th align='center'>Min Salary</th>
@@ -77,7 +110,8 @@ export default function JobView() {
                                                 <td>{j.min_salary}</td>
                                                 <td>{j.max_salary}</td>
                                                 <td>{j.job_title}</td>
-                                                <button onClick={() => onDelete(j.job_id)}> Delete Job </button>
+                                                <button onClick={() => onDelete(j.job_id)}> Delete</button>
+                                                <button onClick={() => onClick({ jID: j.job_id })}> Edit </button>
                                             </tr>
                                         ))
                                     }

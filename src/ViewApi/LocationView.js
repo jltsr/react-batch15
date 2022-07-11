@@ -1,11 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import Api from '../Api/Api'
 import LocationForm from '../FormApi/LocationForm'
+import LocationEditForm from '../FormApi/LocationEditForm'
 
 export default function LocationView() {
     const [location,setLocation] = useState([])
     const [display, setDisplay] = useState(false)
     const [refresh, setRefresh] = useState(false)
+    const [displayEdit, setDisplayEdit] = useState(false)
+    const [id, setId] = useState({})
     const [country_id,setcountry_id] = useState([])
     const [values, setValues] = useState({
         location_id: '',
@@ -29,6 +32,25 @@ export default function LocationView() {
 
     const handleOnChange= name => event =>{
         setValues({...values,[name]:event.target.value})
+    }
+
+    const onEdit = async () => {
+        const payload = {
+            location_id : (id.locID),
+            street_address : values.street_address,
+            postal_code : values.postal_code,
+            city : values.city,
+            state_province : values.state_province,
+            country_id: values.country_id
+        }
+
+        await Api.updateLocation(payload)
+            .then(() => {
+                setDisplayEdit(false)
+                setRefresh(true)
+                window.alert('Data Successfully update')
+            })
+
     }
 
     const onSubmit = async() => {
@@ -59,13 +81,25 @@ export default function LocationView() {
                 window.alert('Data Successfully Delete')
             })
     }
+    const onClick = (locID) => {
+        setDisplayEdit(true)
+        setId(locID)
+    }
 
     return (
         <div>
         <div style={{ margin: "5px", padding: "10px"}}>
-                <h2>List location</h2>
-                <button onClick={() => setDisplay(true)}> Add Location </button>
                 {
+
+                    displayEdit ?
+                    <LocationEditForm
+                        onSubmit={onEdit}
+                        handleOnChange={handleOnChange}
+                        id={id}
+                        country_id={country_id}
+                        setDisplay={setDisplayEdit}
+                    />
+                    :
                     display?
                     <LocationForm
                         onSubmit={onSubmit}
@@ -75,6 +109,9 @@ export default function LocationView() {
                     />
                     :
                         <>
+                         <h2>List location</h2>
+                         <button onClick={() => setDisplay(true)}> Add Location </button>
+                
                             <table rules='all' border='1'>
                                 <th align='center'>Location ID</th>
                                 <th align='center'>Street Adress</th>
@@ -94,7 +131,8 @@ export default function LocationView() {
                                                 <td>{loc.city}</td>
                                                 <td>{loc.state_province}</td>
                                                 <td>{loc.country_id}</td>
-                                                <button onClick={() => onDelete(loc.location_id)}> Delete Location </button>
+                                                <button onClick={() => onDelete(loc.location_id)}> Delete</button>
+                                                <button onClick={() => onClick({ locID: loc.location_id })}> Edit </button>
                                             </tr>
                                         ))
                                     }
