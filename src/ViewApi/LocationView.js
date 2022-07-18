@@ -88,7 +88,7 @@ export default function LocationView() {
 
     return (
         <div>
-        <div style={{ margin: "5px", padding: "10px"}}>
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 {
 
                     displayEdit ?
@@ -109,30 +109,36 @@ export default function LocationView() {
                     />
                     :
                         <>
-                         <h2>List location</h2>
-                         <button onClick={() => setDisplay(true)}> Add Location </button>
+                         
+                         <button type="button" className="cursor-pointer inline-flex justify-center border py-2 px-2 border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onClick={() => setDisplay(true)}> Add Location </button>
                 
-                            <table rules='all' border='1'>
-                                <th align='center'>Location ID</th>
-                                <th align='center'>Street Adress</th>
-                                <th align='center'>Postal Code</th>
-                                <th align='center'>City</th>
-                                <th align='center'>State Province</th>
-                                <th align='center'>Country ID</th>
-                                <th align='center'>Action</th>
-                                
-                                <tbody>
+                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto ">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                    <th scope="col" className="px-6 py-3">Location ID</th>
+                                    <th scope="col" className="px-6 py-3">Street Adress</th>
+                                    <th scope="col" className="px-6 py-3">Postal Code</th>
+                                    <th scope="col" className="px-6 py-3">City</th>
+                                    <th scope="col" className="px-6 py-3">State Province</th>
+                                    <th scope="col" className="px-6 py-3">Country ID</th>
+                                    <th scope="col" className="px-6 py-3">Action</th>
+                                    </tr>
+                                </thead>    
+                                <tbody className="overscroll-auto md:overscroll-contain">
                                     {
                                         location&&location.map( loc => (
-                                            <tr key={loc.location_id}>
-                                                <td>{loc.location_id}</td>
-                                                <td>{loc.street_address}</td>
-                                                <td>{loc.postal_code}</td>
-                                                <td>{loc.city}</td>
-                                                <td>{loc.state_province}</td>
-                                                <td>{loc.country_id}</td>
-                                                <button onClick={() => onDelete(loc.location_id)}> Delete</button>
-                                                <button onClick={() => onClick({ locID: loc.location_id })}> Edit </button>
+                                            <tr key={loc.location_id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <td scope="row" className="px-6 py-2 font-medium text-gray-900 dark:text-white whitespace-nowrap">{loc.location_id}</td>
+                                                <td className="px-6 py-2">{loc.street_address}</td>
+                                                <td className="px-6 py-2">{loc.postal_code}</td>
+                                                <td className="px-6 py-2">{loc.city}</td>
+                                                <td className="px-6 py-2">{loc.state_province}</td>
+                                                <td className="px-6 py-2">{loc.country_id}</td>
+                                                <button ype="button"
+                                                        class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline" onClick={() => onDelete(loc.location_id)}> Delete</button>
+                                                <button onClick={() => onClick({ locID: loc.location_id })}
+                                                type="button"
+                                                class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline"> Edit </button>
                                             </tr>
                                         ))
                                     }

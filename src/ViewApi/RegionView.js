@@ -68,7 +68,7 @@ export default function RegionView() {
 
     return (
     <div>
-        <div style={{ margin: "5px", padding: "10px" }}>
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             {
                 
                 displayEdit ?
@@ -88,21 +88,30 @@ export default function RegionView() {
                             />
                         :
                             <>
-                                <h2>List Region</h2>
-                                <button onClick={() => setDisplay(true)}> Add Region </button>
-                                <table rules='all' border='1'>
-                                    <th align='center'>Region ID</th>
-                                    <th align='center'>Region Name</th>
-                                    <th align='center'>Action</th>
-                                    <tbody>
+                                
+                                <button type="button" className="cursor-pointer inline-flex justify-center border py-2 px-2 border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onClick={() => setDisplay(true)}> Add Region </button>
+                                <table  className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto ">
+                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                        <th scope="col" className="px-6 py-3">Region ID</th>
+                                        <th scope="col" className="px-6 py-3">Region Name</th>
+                                        <th scope="col" className="px-6 py-3">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="overscroll-auto md:overscroll-contain">
                                         {
                                             region&&region.map( reg => {
                                                 return(
-                                                <tr key={reg.region_id}>
-                                                    <td>{reg.region_id}</td>
-                                                    <td>{reg.region_name}</td>
-                                                    <button onClick={() => onDelete(reg.region_id)}> Delete Region </button>
-                                                    <button onClick={() => onClick({ regID: reg.region_id })}> Edit Region </button>
+                                                <tr key={reg.region_id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                    <td scope="row" className="px-6 py-2 font-medium text-gray-900 dark:text-white whitespace-nowrap">{reg.region_id}</td>
+                                                    <td className="px-6 py-2">{reg.region_name}</td>
+                                                    <button type="button"
+                                                        class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline" onClick={() => onDelete(reg.region_id)}>
+                                                        Delete</button>
+                                                    <button onClick={() => onClick({ regID: reg.region_id })}
+                                                        type="button"
+                                                        class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline">
+                                                        Edit</button>
                                                 </tr>
                                                  
                                                 

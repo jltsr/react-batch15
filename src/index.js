@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './Redux/Store';
+import store from './Redux-saga/Store';
 
 import StoreToolkit from './Toolkit/StoreToolkit';
 import { Provider } from 'react-redux';
@@ -13,7 +13,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 
 ReactDOM.render(
-  <Provider store={StoreToolkit}>
+  <Provider store={store}>
     <HelmetProvider>
       <BrowserRouter>
         <Route />

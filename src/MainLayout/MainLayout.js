@@ -8,6 +8,10 @@ const navigation = [
     { name: 'Department', href: 'department', current: false },
     { name: 'Dependent', href: 'dependent', current: false },
     { name: 'Job', href: 'job', current: false },
+    { name: 'Employee', href: 'employee', current: false },
+    { name: 'ProjectAssignment', href: 'project_assignment', current: false },
+    { name: 'Project', href: 'project', current: false },
+
 ]
 
 export default function MainLayout() {

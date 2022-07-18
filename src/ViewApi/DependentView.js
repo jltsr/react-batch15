@@ -80,7 +80,7 @@ export default function DependentView() {
 
     return (
         <div>
-        <div style={{ margin: "5px", padding: "10px" }} >
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg" >
                 
                 {
                     displayEdit ?
@@ -102,26 +102,29 @@ export default function DependentView() {
                             />
                     :
                         <>
-                            <h2>List Dependent</h2>
-                            <button onClick={() => setDisplay(true)}> Add Dependent </button>
-                            <table rules='all' border='1'>
-                                <th align='center'>Dependent ID</th>
-                                <th align='center'>First Name</th>
-                                <th align='center'>Last Name</th>
-                                <th align='center'>Relationship</th>
-                                <th align='center'>Employee ID</th>
-                                <th align='center'>Action</th>
+                            <button type="button" className="cursor-pointer inline-flex justify-center border py-2 px-2 border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onClick={() => setDisplay(true)}> Add Dependent </button>
+                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto ">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <th scope="col" className="px-6 py-3">Dependent ID</th>
+                                    <th scope="col" className="px-6 py-3">First Name</th>
+                                    <th scope="col" className="px-6 py-3">Last Name</th>
+                                    <th scope="col" className="px-6 py-3">Relationship</th>
+                                    <th scope="col" className="px-6 py-3">Employee ID</th>
+                                    <th scope="col" className="px-6 py-3">Action</th>
+                                </thead>
                                 <tbody>
                                     {
                                         dependent&&dependent.map( depen => (
-                                            <tr key={depen.dependent_id}>
-                                                <td>{depen.dependent_id}</td>
-                                                <td>{depen.first_name}</td>
-                                                <td>{depen.last_name}</td>
-                                                <td>{depen.relationship}</td>
-                                                <td>{depen.employee_id}</td>
-                                                <button onClick={() => onDelete(depen.dependent_id)}> Delete</button>
-                                                <button onClick={() => onClick({ depenID: depen.dependent_id })}> Edit </button>
+                                            <tr key={depen.dependent_id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <td scope="row" className="px-6 py-2 font-medium text-gray-900 dark:text-white whitespace-nowrap">{depen.dependent_id}</td>
+                                                <td className="px-6 py-2">{depen.first_name}</td>
+                                                <td className="px-6 py-2">{depen.last_name}</td>
+                                                <td className="px-6 py-2">{depen.relationship}</td>
+                                                <td className="px-6 py-2">{depen.employee_id}</td>
+                                                <button type="button"
+                                                        class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline" onClick={() => onDelete(depen.dependent_id)}> Delete</button>
+                                                <button type="button"
+                                                        class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline" onClick={() => onClick({ depenID: depen.dependent_id })}> Edit </button>
                                             </tr>
                                         ))
                                     }

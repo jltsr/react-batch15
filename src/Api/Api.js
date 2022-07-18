@@ -280,9 +280,12 @@ const findOneEmployee = async(id)=>{
         return error
     }
 }
+
+
 const updateEmployee = async(data)=>{
+    const employee_id = parseInt(data.get("employee_id"));
     try {
-        const result = await axios.put(`${config.domain}/employee/${data.region_id}`,data)
+        const result = await axios.put(`${config.domain}/employee/${employee_id}`,data)
         return result
     } catch (error) {
         return error
@@ -290,7 +293,7 @@ const updateEmployee = async(data)=>{
 }
 const deleteEmployee= async(id) => {
     try {
-        const result =await axios.delete(`${config.domain}/employee${id}`)
+        const result =await axios.delete(`${config.domain}/employee/${id}`)
         return result
     } catch (error) {
         return await error.message
@@ -340,7 +343,7 @@ const deleteProject= async(id) => {
 }
 
 //project assignment
-const listPojectAssignment = async() => {
+const listProjectAssignment = async() => {
     try {
         const resultProjectAssignment = await axios.get(`${config.domain}/project_assignment/`)
         return resultProjectAssignment.data
@@ -389,5 +392,5 @@ export default {
     listDependent,addDependent,findOneDependent,updateDependent,deleteDependent,
     listEmployee,addEmployee,findOneEmployee,updateEmployee,deleteEmployee,
     listProject,addProject,findOneProject,updateProject,deleteProject,
-    listPojectAssignment,addProjectAssignment,findOneProjectAssignment,updateProjectAssignment,deleteProjectAssignment
+    listProjectAssignment,addProjectAssignment,findOneProjectAssignment,updateProjectAssignment,deleteProjectAssignment
 }

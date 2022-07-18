@@ -1,12 +1,15 @@
 import React from "react";
 import { Navigate, useRoutes } from "react-router-dom";
-import DashboardLayout from './MainLayout/MainLayout'
+import DashboardLayout from './MainLayout/Dashboard'
 import CountryView from "./ViewApi/CountryView";
 import DepartmentView from "./ViewApi/DepartmentView";
 import DependentView from "./ViewApi/DependentView";
+import EmployeeView from "./ViewSaga/Employee";
 import JobView from "./ViewApi/JobView";
 import LocationView from "./ViewApi/LocationView";
-import RegionView from './ViewApi/RegionView'
+import RegionView from './ViewApi/RegionView';
+import ProjectAssignmentView from './ViewApi/ProjectAssignmentView'
+import ProjectView from './ViewApi/ProjectView'
 
 export default function Route(){
     return useRoutes([
@@ -15,41 +18,14 @@ export default function Route(){
             element: <DashboardLayout />,
             children: [
                 { path: 'region', element: <RegionView /> },
-            ]
-        },
-        {
-            path: '/',
-            element: <DashboardLayout />,
-            children: [
                 { path: 'country', element: <CountryView /> },
-            ]
-        },
-        {
-            path: '/',
-            element: <DashboardLayout />,
-            children: [
                 { path: 'location', element: <LocationView /> },
-            ]
-        },
-        {
-            path: '/',
-            element: <DashboardLayout />,
-            children: [
                 { path: 'department', element: <DepartmentView /> },
-            ]
-        },
-        {
-            path: '/',
-            element: <DashboardLayout />,
-            children: [
                 { path: 'dependent', element: <DependentView /> },
-            ]
-        },
-        {
-            path: '/',
-            element: <DashboardLayout />,
-            children: [
                 { path: 'job', element: <JobView /> },
+                { path: 'employee', element: <EmployeeView /> },
+                { path: 'project_assignment', element: <ProjectAssignmentView /> },
+                { path: 'project', element: <ProjectView /> }
             ]
         },
         {
